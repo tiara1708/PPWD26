@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Kue Modern - jQuery</title>
+    <!-- jQuery via CDN CDNJS (Sangat Stabil) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        :root {
+            --bg: #FAF4EE;
+            --pink: #F7D0CB;
+            --cream: #F5E5D3;
+            --purple: #CBBBCB;
+            --text: #4A3E3D;
+            --red: #D9534F;
+        }
+
+        body {
+            font-family: sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2,
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-pink {
+            background: var(--pink);
+        }
+
+        .card-cream {
+            background: var(--cream);
+        }
+
+        .card-purple {
+            background: var(--purple);
+        }
+
+        .product-emoji {
+            font-size: 80px;
+            margin: 10px 0;
+            line-height: 1;
+        }
+
+        .btn {
+            background: var(--text);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 1rem;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 380px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .err {
+            color: var(--red);
+            font-size: 0.8rem;
+            display: none;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Pastry & Cake Menu</h2>
+
+        <div class="products-grid">
+            <div class="product-card card-pink">
+                <div class="product-emoji">🍰</div>
+                <h3>Aatis Cake</h3>
+                <p><strong>Rp 45.000</strong></p>
+                <button class="btn btn-add" data-id="1" data-nama="Aatis Cake" data-harga="45000">+ Keranjang</button>
+            </div>
+            <div class="product-card card-cream">
+                <div class="product-emoji">🍫</div>
+                <h3>Lermi Choco</h3>
+                <p><strong>Rp 40.000</strong></p>
+                <button class="btn btn-add" data-id="2" data-nama="Lermi Choco" data-harga="40000">+ Keranjang</button>
+            </div>
+            <div class="product-card card-purple">
+                <div class="product-emoji">🧁</div>
+                <h3>Flitre Flake</h3>
+                <p><strong>Rp 35.000</strong></p>
+                <button class="btn btn-add" data-id="3" data-nama="Flitre Flake" data-harga="35000">+ Keranjang</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Keranjang Belanja</h3>
+            <div id="cartList">Keranjang kosong.</div>
+            <div
+                style="text-align: right; font-weight: bold; font-size: 1.1rem; margin-top: 15px; margin-bottom: 15px;">
+                Total: <span id="cartTotal">Rp 0</span>
+            </div>
+            <button id="btnCheckout" class="btn" disabled>Checkout</button>
+        </div>
+
+        <div class="box">
+            <h3>Riwayat Pembelian</h3>
+            <div id="historyList">Belum ada riwayat.</div>
+        </div>
+    </div>
+
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <h3>Data Pembeli</h3>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label>Nama</label>
+                    <input type="text" id="nama">
+                    <div class="err" id="errNama">Min. 3 karakter</div>
+                </div>
+                <div class="form-group">
+                    <label>No HP</label>
+                    <input type="text" id="hp">
+                    <div class="err" id="errHp">Min. 10 digit angka</div>
+                </div>
+                <div class="form-group">
+                    <label>Alamat</label>
+                    <textarea id="alamat" rows="2"></textarea>
+                    <div class="err" id="errAlamat">Min. 10 karakter</div>
+                </div>
+                <div style="display:flex; gap:10px; margin-top: 20px;">
+                    <button type="button" class="btn" id="btnBatal" style="background:#888; flex:1;">Batal</button>
+                    <button type="submit" class="btn" style="flex:2;">Bayar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        if (typeof jQuery === 'undefined') {
+            alert('jQuery gagal dimuat! Pastikan perangkat terhubung ke internet.');
+        } else {
+            $(document).ready(function () {
+                let cart = [];
+
+                $('.btn-add').click(function () {
+                    const id = $(this).data('id'), nama = $(this).data('nama'), harga = $(this).data('harga');
+                    const item = cart.find(i => i.id === id);
+                    item ? item.qty++ : cart.push({ id, nama, harga, qty: 1 });
+                    updateCartUI();
+                });
+
+                // Latihan 1: Diskon 10%
+                function updateCartUI() {
+                    const $cartList = $('#cartList').empty();
+                    if (!cart.length) {
+                        $cartList.html('Keranjang kosong.'); $('#cartTotal').html('Rp 0');
+                        return $('#btnCheckout').prop('disabled', true);
+                    }
+                    $('#btnCheckout').prop('disabled', false);
+
+                    cart.forEach(i => $cartList.append(`<div class="item-row"><span>${i.nama} x ${i.qty}</span><span>Rp ${(i.harga * i.qty).toLocaleString('id-ID')}</span></div>`));
+
+                    let totalHarga = cart.reduce((sum, item) => sum + (item.harga * item.qty), 0);
+                    if (totalHarga > 100000) {
+                        const diskon = totalHarga * 0.1;
+                        totalHarga -= diskon;
+                        $('#cartTotal').html(`<span class="strikethrough">Rp ${(totalHarga + diskon).toLocaleString('id-ID')}</span> Rp ${totalHarga.toLocaleString('id-ID')} (Diskon 10%)`);
+                    } else {
+                        $('#cartTotal').html(`Rp ${totalHarga.toLocaleString('id-ID')}`);
+                    }
+                }
+
+                // Latihan 2: LocalStorage
+                function simpanRiwayat(total, qty) {
+                    const riwayat = JSON.parse(localStorage.getItem('riwayat')) || [];
+                    riwayat.push({ tanggal: new Date().toLocaleDateString('id-ID'), total, qty });
+                    localStorage.setItem('riwayat', JSON.stringify(riwayat));
+                    tampilkanRiwayat();
+                }
+
+                function tampilkanRiwayat() {
+                    const riwayat = JSON.parse(localStorage.getItem('riwayat')) || [];
+                    const $list = $('#historyList').empty();
+                    if (!riwayat.length) return $list.html('Belum ada riwayat.');
+                    riwayat.forEach((r, idx) => $list.prepend(`<div class="item-row"><span>#${idx + 1} ${r.tanggal} (${r.qty} item)</span><strong>Rp ${r.total.toLocaleString('id-ID')}</strong></div>`));
+                }
+
+                // Latihan 3: Validasi Modal
+                $('#btnCheckout').click(() => $('#checkoutModal').css('display', 'flex').hide().fadeIn());
+                $('#btnBatal').click(() => $('#checkoutModal').fadeOut());
+
+                $('#checkoutForm').submit(function (e) {
+                    e.preventDefault();
+                    let valid = true;
+                    const nama = $('#nama').val().trim(), hp = $('#hp').val().trim(), alamat = $('#alamat').val().trim();
+
+                    if (nama.length < 3) { $('#errNama').show(); valid = false; } else $('#errNama').hide();
+                    if (!/^[0-9]{10,}$/.test(hp)) { $('#errHp').show(); valid = false; } else $('#errHp').hide();
+                    if (alamat.length < 10) { $('#errAlamat').show(); valid = false; } else $('#errAlamat').hide();
+
+                    if (valid) {
+                        let total = cart.reduce((sum, i) => sum + (i.harga * i.qty), 0);
+                        if (total > 100000) total *= 0.9;
+                        const qty = cart.reduce((sum, i) => sum + i.qty, 0);
+
+                        simpanRiwayat(total, qty);
+                        cart = [];
+                        updateCartUI();
+                        this.reset();
+                        $('#checkoutModal').fadeOut();
+                        alert('Pembelian Berhasil!');
+                    }
+                });
+
+                tampilkanRiwayat();
+            });
+        }
+    </script>
+
+</body>
+
+</html>

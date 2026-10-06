@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Interaktif</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #FAF4EE;
+            --pink: #F7D0CB;
+            --cream: #F5E5D3;
+            --text: #4A3E3D;
+            --red: #D9534F;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .profile {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .profile-left, .form {
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.05);
+        }
+
+        .profile-left { background: var(--pink); }
+        .form { background: var(--cream); }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .foto {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 34px;
+            flex-shrink: 0;
+        }
+
+        h2, h3 { margin-top: 0; }
+        h2 { margin-bottom: 5px; }
+        h3 { text-align: center; margin-bottom: 20px; }
+
+        .profile-info p {
+            margin: 0;
+            color: #6d5d5b;
+        }
+
+        .detail { margin: 10px 0; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #CBBBCB;
+        }
+
+        button {
+            width: 100%;
+            background: var(--text);
+            color: white;
+            border: 0;
+            padding: 12px 24px;
+            margin-top: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        button:hover { opacity: .9; }
+        button:active { transform: scale(.98); }
+
+        .edit-form { display: none; margin-top: 15px; }
+
+        .error {
+            display: none;
+            margin: 2px 0 6px;
+            color: var(--red);
+            font-size: 13px;
+        }
+
+        #successMessage {
+            display: none;
+            color: #198754;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .profile { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile">
+
+            <div class="profile-left">
+                <div class="profile-info">
+                    <div class="foto">🐇</div>
+                    <div>
+                        <h2 id="profileName">tirr</h2>
+                        <p id="job">Front-End Developer</p>
+                    </div>
+                </div>
+
+                <div class="detail">📍 Edinburgh, Scotlandia</div>
+                <div class="detail">✉ tiara@gmail.com</div>
+
+                <button id="btnUbahProfil">🔄 Ganti Profil</button>
+
+                <div class="edit-form" id="editForm">
+                    <input type="text" id="namaProfil" placeholder="Nama">
+                    <input type="text" id="jabatanProfil" placeholder="Jabatan">
+                    <button id="btnSimpan">Simpan</button>
+                </div>
+            </div>
+
+            <div class="form">
+                <h3>💬 Tinggalkan Pesan</h3>
+
+                <form id="contactForm">
+                    <input type="text" id="nama" placeholder="Nama Anda">
+                    <p class="error" id="errNama">Nama minimal 3 karakter</p>
+
+                    <input type="email" id="email" placeholder="Email Anda">
+                    <p class="error" id="errEmail">Masukkan email yang valid</p>
+
+                    <button type="submit">➤ Kirim</button>
+                </form>
+
+                <p id="successMessage">Pesan berhasil dikirim!</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $('#btnUbahProfil').click(function () {
+            $('#namaProfil').val($('#profileName').text());
+            $('#jabatanProfil').val($('#job').text());
+            $('#editForm').slideToggle();
+        });
+
+        $('#btnSimpan').click(function () {
+            let nama = $('#namaProfil').val().trim();
+            let jabatan = $('#jabatanProfil').val().trim();
+
+            if (nama != '' && jabatan != '') {
+                $('#profileName').text(nama);
+                $('#job').text(jabatan);
+                $('#editForm').slideUp();
+            }
+        });
+
+        $('#contactForm').submit(function (e) {
+            e.preventDefault();
+            let valid = true;
+            let nama = $('#nama').val().trim();
+            let email = $('#email').val().trim();
+
+            if (nama.length < 3) {
+                $('#errNama').show();
+                valid = false;
+            } else {
+                $('#errNama').hide();
+            }
+
+            if (email == '' || !email.includes('@')) {
+                $('#errEmail').show();
+                valid = false;
+            } else {
+                $('#errEmail').hide();
+            }
+
+            if (valid) {
+                $('#successMessage').fadeIn().delay(2000).fadeOut();
+                $('#contactForm')[0].reset();
+            }
+        });
+    </script>
+</body>
+</html>
