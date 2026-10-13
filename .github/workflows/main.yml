@@ -16,8 +16,8 @@ jobs:
 
       - name: Trigger aaPanel Webhook
         env:
-          WEBHOOK_KEY: ${{ secrets.atsWTYsNguJF5firhsLWS0cdgi4CrHhjiwinOxTDTEDJoTj6 }}
+          WEBHOOK_KEY: ${{ secrets.AAPANEL_WEBHOOK_KEY }}
         run: |
           curl -kfsS --retry 2 --retry-delay 3 \
             -X POST \
-            "https://103.171.84.81:25181/hook?access_key=${atsWTYsNguJF5firhsLWS0cdgi4CrHhjiwinOxTDTEDJoTj6}"
+            "https://103.171.84.81:25181/hook?access_key=${WEBHOOK_KEY}"
