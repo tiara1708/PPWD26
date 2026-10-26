@@ -1,134 +1,202 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warung Ice Cream - Es Krim Segar Setiap Hari</title>
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <!-- Font Awesome untuk ikon. -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Chic Bloom Accessories - Tas & Aksesori Cantik</title>
+    
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700
-;800&display=swap" rel="stylesheet">
-    <!-- CSS Eksternal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
-</head>
 
+    <!-- CDN jQuery & jQuery Validation Plugin -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+</head>
 <body>
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-ice-cream"></i>
-                <span>Warung Ice Cream</span>
-            </div>
-            <div class="nav-menu" id="navMenu">
-                <a class="nav-link active" data-filter="all">Semua</a>
-                <a class="nav-link" data-filter="es-krim">Es Krim</a>
-                <a class="nav-link" data-filter="sundae">Sundae</a>
-                <a class="nav-link" data-filter="minuman">Minuman</a>
-            </div>
-            <div class="cart-btn" id="cartBtn">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-text">Keranjang</span>
-                <span class="cart-badge" id="cartBadge">0</span>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
+
+    <!-- NAVBAR DENGAN DROPDOWN INTERAKTIF -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">Chic Bloom 🌸</a>
+            <ul class="nav-list">
+                <li><a href="#beranda">Beranda</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-btn" type="button">Koleksi Tas ▼</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#koleksi" data-tab-target="#tab-handbag">Handbag Series</a></li>
+                        <li><a href="#koleksi" data-tab-target="#tab-shoulder">Shoulder Bag</a></li>
+                        <li><a href="#koleksi" data-tab-target="#tab-backpack">Mini Backpack</a></li>
+                    </ul>
+                </li>
+                <li><a href="#tentang">Tentang Kami</a></li>
+                <li><a href="#pesan">Pesan Cepat</a></li>
+                <li><a href="#member">Jadi Member</a></li>
+            </ul>
         </div>
     </nav>
-    <!-- ========== HERO SECTION ========== -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Selamat Datang di <span>Warung Ice Cream</span> 🍦</h1>
-            <p>Pilih es krim favoritmu, tambahkan ke keranjang, dan nikmati
-                kesegarannya!</p>
-            <div class="search-box">
-                <input type="text" id="searchProduk" placeholder="Cari es krim favoritmu...">
-                <i class="fas fa-search"></i>
+
+    <!-- HERO SECTION -->
+    <header id="beranda" class="hero">
+        <div class="container">
+            <span class="badge-hero">New Feminine Collection 2026</span>
+            <h1>Chic Bloom Accessories</h1>
+            <p>Sentuhan warna pastel yang lembut untuk melengkapi penampilan manismu setiap hari. Temukan koleksi tas impianmu di sini.</p>
+        </div>
+    </header>
+
+    <!-- KOLEKSI PRODUK DENGAN TAB -->
+    <section id="koleksi" class="container">
+        <h2>Koleksi Favorit</h2>
+        <div class="tabs">
+            <button class="tab active" type="button" data-target="#tab-handbag">Handbag</button>
+            <button class="tab" type="button" data-target="#tab-shoulder">Shoulder Bag</button>
+            <button class="tab" type="button" data-target="#tab-backpack">Mini Backpack</button>
+        </div>
+
+        <!-- TAB HANDBAG -->
+        <div id="tab-handbag" class="tab-panel product-grid">
+            <div class="product-card">
+                <div class="card-badge">Best Seller</div>
+                <h3>Rosy Ribbon Handbag</h3>
+                <p>Tas tangan elegan dengan aksen pita aksesoris dan tekstur kulit sintetis premium yang lembut.</p>
+                <div class="price">Rp 289.000</div>
+            </div>
+            <div class="product-card">
+                <div class="card-badge">New</div>
+                <h3>Blush Pearl Satchel</h3>
+                <p>Dilengkapi tali mutiara manis yang cocok buat acara formal maupun kencan santai.</p>
+                <div class="price">Rp 315.000</div>
+            </div>
+        </div>
+
+        <!-- TAB SHOULDER BAG -->
+        <div id="tab-shoulder" class="tab-panel product-grid" style="display: none;">
+            <div class="product-card">
+                <div class="card-badge">Trending</div>
+                <h3>Daisy Soft Cloud Bag</h3>
+                <p>Bahan empuk dengan motif bunga daisy yang imut, muat banyak barang kesayanganmu.</p>
+                <div class="price">Rp 245.000</div>
+            </div>
+            <div class="product-card">
+                <h3>Lilac Tweed Shoulder</h3>
+                <p>Desain klasik bahan tweed warna lilac pastel yang bikin tampilan makin terkesan feminin.</p>
+                <div class="price">Rp 275.000</div>
+            </div>
+        </div>
+
+        <!-- TAB MINI BACKPACK -->
+        <div id="tab-backpack" class="tab-panel product-grid" style="display: none;">
+            <div class="product-card">
+                <h3>Peach Puff Backpack</h3>
+                <p>Tas punggung mini yang muat untuk tablet dan alat make-up, nyaman dipakai kuliah atau jalan-jalan.</p>
+                <div class="price">Rp 298.000</div>
+            </div>
+            <div class="product-card">
+                <div class="card-badge">Limited</div>
+                <h3>Matcha Creamy Pack</h3>
+                <p>Warna hijau pastel lembut dengan gantungan boneka gratis untuk tampil imut.</p>
+                <div class="price">Rp 285.000</div>
             </div>
         </div>
     </section>
-    <!-- ========== PRODUK SECTION ========== -->
-    <section class="produk-section">
-        <div class="section-header">
-            <h2><i class="fas fa-list"></i> Menu Kami</h2>
-            <div class="filter-btns">
-                <button class="filter-btn active" data-cat="all">Semua</button>
-                <button class="filter-btn" data-cat="es-krim">Es Krim</button>
-                <button class="filter-btn" data-cat="sundae">Sundae</button>
-                <button class="filter-btn" data-cat="minuman">Minuman</button>
-            </div>
+
+    <!-- TENTANG KAMI -->
+    <section id="tentang" class="about-section">
+        <div class="container about-content">
+            <h2>Tentang Chic Bloom</h2>
+            <p>Chic Bloom hadir sejak tahun 2024 untuk mendampingi setiap momen berhargamu. Kami percaya bahwa tas bukan sekadar pelengkap busana, melainkan pancaran rasa percaya diri dan keanggunan perempuan. Setiap produk dirancang dengan detail yang halus, warna pastel manis, dan kualitas jahitan terbaik.</p>
         </div>
-        <!-- Grid produk akan di-render oleh jQuery -->
-        <div class="produk-grid" id="produkGrid"></div>
     </section>
-    <!-- ========== CART SIDEBAR. ========== -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <aside class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3><i class="fas fa-shopping-bag"></i> Keranjang Belanja</h3>
-            <button class="cart-close" id="cartClose">
-                <i class="fas fa-times"></i>
-            </button>
+
+    <!-- FORM PESANAN CEPT -->
+    <section id="pesan" class="form-section">
+        <div class="container">
+            <h2>Pesan Cepat Produk</h2>
+            <form id="formPesan" class="form-box" novalidate>
+                <div class="form-group">
+                    <label for="nama">Nama Pembeli</label>
+                    <input type="text" id="nama" class="field wajib" placeholder="Masukkan nama kamu">
+                    <div class="hint">Nama dibutuhkan untuk konfirmasi pengiriman barang.</div>
+                </div>
+                <div class="form-group">
+                    <label for="pilihMenu">Pilih Tas Impianmu</label>
+                    <select id="pilihMenu" class="field wajib">
+                        <option value="">-- Pilih Produk --</option>
+                        <option>Rosy Ribbon Handbag</option>
+                        <option>Blush Pearl Satchel</option>
+                        <option>Daisy Soft Cloud Bag</option>
+                        <option>Lilac Tweed Shoulder</option>
+                        <option>Peach Puff Backpack</option>
+                        <option>Matcha Creamy Pack</option>
+                    </select>
+                    <div class="hint">Silakan pilih salah satu tas yang ingin kamu pesan.</div>
+                </div>
+                <button type="submit" class="btn">Kirim Pesanan Sekarang</button>
+            </form>
         </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Item keranjang akan di-render oleh jQuery -->
+    </section>
+
+    <!-- FORM MEMBER (JQUERY VALIDATION PLUGIN) -->
+    <section id="member">
+        <div class="container">
+            <h2>Daftar Bloom VIP Member</h2>
+            <form id="formMember" class="form-box">
+                <div class="form-group">
+                    <label for="mNama">Nama Lengkap</label>
+                    <input type="text" id="mNama" name="nama" placeholder="Isi nama sesuai KTP">
+                </div>
+                <div class="form-group">
+                    <label for="mEmail">Email Aktif</label>
+                    <input type="text" id="mEmail" name="email" placeholder="contoh: kamu@domain.com">
+                </div>
+                <div class="form-group">
+                    <label for="mHp">Nomor WhatsApp / HP</label>
+                    <input type="text" id="mHp" name="hp" placeholder="10 - 12 digit angka">
+                </div>
+                <div class="form-group">
+                    <label for="mUsia">Usia</label>
+                    <input type="text" id="mUsia" name="usia" placeholder="Minimal 17 tahun">
+                </div>
+                <div class="form-group">
+                    <label for="mKategori">Kategori Tas Favorit</label>
+                    <select id="mKategori" name="kategori">
+                        <option value="">-- Pilih Kategori Favorit --</option>
+                        <option value="handbag">Handbag</option>
+                        <option value="shoulder">Shoulder Bag</option>
+                        <option value="backpack">Mini Backpack</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mPassword">Password VIP</label>
+                    <input type="password" id="mPassword" name="password" placeholder="Minimal 8 karakter (kombinasi huruf & angka)">
+                </div>
+                <div class="form-group">
+                    <label for="mKonfirmasi">Konfirmasi Password</label>
+                    <input type="password" id="mKonfirmasi" name="konfirmasi" placeholder="Ulangi password di atas">
+                </div>
+                <button type="submit" class="btn">Bergabung VIP Member</button>
+                <div class="sukses" id="sukses">
+                    <strong>Pendaftaran Berhasil! 🌸</strong> Selamat! Kamu resmi jadi VIP Member Chic Bloom dan berhak dapat diskon 15%.
+                </div>
+            </form>
         </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span class="total-price" id="cartTotal">Rp 0</span>
-            </div>
-            <button class="btn-checkout" id="btnCheckout">
-                <i class="fas fa-check-circle"></i> Checkout Sekarang
-            </button>
-        </div>
-    </aside>
-    <!-- ========== TOAST NOTIFICATION ========== -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMsg">Produk ditambahkan!</span>
-    </div>
-    <!-- ========== FOOTER ========== -->
-    <footer class="footer">
-        <p><strong>Warung Ice Cream</strong> © 2025</p>
-        <p>Praktikum Pemrograman Web Dasar · Prodi Sistem Informasi</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Chic Bloom Accessories | Praktikum Pemrograman Web Dasar - Minggu 10 & 11</p>
     </footer>
-    <!-- JavaScript Eksternal -->
+
+    <!-- TOAST NOTIFICATION & BACK TO TOP -->
+    <div id="toast"></div>
+    <button id="backToTop" type="button" aria-label="Kembali ke atas">&#8593;</button>
+
+    <!-- External JavaScript -->
     <script src="script.js"></script>
-    <!-- ========== MODAL FORM PEMBELI ========== -->
-<div class="cart-overlay" id="checkoutModalOverlay"></div>
-
-<div class="modal-checkout" id="checkoutModal">
-  <div class="modal-header">
-    <h3><i class="fas fa-user-edit"></i> Data Pemesan</h3>
-    <button class="cart-close" id="modalClose"><i class="fas fa-times"></i></button>
-  </div>
-  <form id="formCheckout" class="modal-body">
-    <div class="form-group">
-      <label for="namaPemesan">Nama Lengkap</label>
-      <input type="text" id="namaPemesan" placeholder="Contoh: Budi Santoso" required>
-    </div>
-    <div class="form-group">
-      <label for="noHpPemesan">Nomor HP / WhatsApp</label>
-      <input type="tel" id="noHpPemesan" placeholder="Contoh: 08123456789" required>
-    </div>
-    <div class="form-group">
-      <label for="alamatPemesan">Alamat Pengiriman</label>
-      <textarea id="alamatPemesan" rows="3" placeholder="Masukkan alamat lengkap..." required></textarea>
-    </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn-checkout" id="btnKonfirmasiCheckout">
-        <i class="fas fa-paper-plane"></i> Konfirmasi & Bayar
-      </button>
-    </div>
-  </form>
-</div>
 </body>
-
 </html>
